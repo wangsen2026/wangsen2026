@@ -1,0 +1,345 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+}
+
+/* 全局容器 */
+.quanju {
+    width: 1200px;
+    margin: 0 auto;
+}
+
+/* 头部区域 */
+header {
+    background: #2c3e50;
+    color: #fff;
+    padding: 15px;
+    overflow: hidden;
+}
+
+.logo {
+    float: left;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.nav {
+    float: right;
+}
+
+.nav ul {
+    list-style: none;
+}
+
+.nav ul li {
+    float: left;
+    margin-left: 20px;
+}
+
+.nav ul li .nav-item {
+    color: #fff;
+    cursor: pointer;
+    padding: 5px 10px;
+    display: inline-block;
+}
+
+.nav ul li .nav-item:hover {
+    background: #34495e;
+}
+
+/* 主体内容 */
+.main {
+    overflow: hidden;
+    margin-top: 20px;
+}
+
+/* 左侧栏 */
+.left {
+    width: 20%;
+    float: left;
+    background: #fff;
+    padding: 20px;
+    margin-right: 2%;
+    border: 1px solid #ddd;
+}
+
+.left h3 {
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.left ul {
+    list-style: none;
+}
+
+.left ul li {
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+}
+
+.left ul li:hover {
+    color: #e74c3c;
+    padding-left: 10px;
+}
+
+/* 中间栏 */
+.center {
+    width: 56%;
+    float: left;
+    background: #fff;
+    padding: 20px;
+    border: 1px solid #ddd;
+}
+
+.hot h3, .new h3 {
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.grid {
+    overflow: hidden;
+}
+
+.item {
+    width: 30%;
+    float: left;
+    margin-right: 5%;
+    text-align: center;
+    cursor: pointer;
+}
+
+.item:last-child {
+    margin-right: 0;
+}
+
+.item .cover {
+    width: 100%;
+    height: 150px;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.item .cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.item:hover {
+    transform: translateY(-5px);
+}
+
+.item span {
+    color: #e74c3c;
+    font-weight: bold;
+}
+
+/* 新书上市表格 */
+.new table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.new table th, .new table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+.new table th {
+    background: #f8f8f8;
+}
+
+.new table tr:hover {
+    background: #f9f9f9;
+}
+
+/* 右侧栏 */
+.right {
+    width: 20%;
+    float: right;
+}
+
+.promo, .rank {
+    background: #fff;
+    padding: 20px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+}
+
+.promo h3, .rank h3 {
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.promo div, .rank div {
+    padding: 8px 0;
+    cursor: pointer;
+}
+
+.promo div:hover, .rank div:hover {
+    color: #e74c3c;
+}
+
+/* 页脚 */
+.bottom {
+    background: #2c3e50;
+    color: #fff;
+    text-align: center;
+    padding: 15px;
+    margin-top: 20px;
+}
+
+/* 登录/注册对话框 */
+#login-modal, #register-modal {
+    display: none;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+}
+
+#login-modal:checked + .modal,
+#register-modal:checked + .modal {
+    display: block;
+}
+
+.modal-mask {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+}
+
+.close {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    font-size: 28px;
+    cursor: pointer;
+    color: #999;
+}
+
+.close:hover {
+    color: #333;
+}
+
+.modal-title {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.login-form, .register-form {
+    padding-top: 20px;
+}
+
+.login-form input, .register-form input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.login-form input:focus, .register-form input:focus {
+    outline: none;
+    border-color: #e74c3c;
+}
+
+.login-form input[type="submit"],
+.login-form input[type="reset"] {
+    width: 48%;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.login-form input[type="submit"] {
+    background: #e74c3c;
+    color: #fff;
+    margin-right: 4%;
+}
+
+.login-form input[type="submit"]:hover {
+    background: #c0392b;
+}
+
+.login-form input[type="reset"] {
+    background: #95a5a6;
+    color: #fff;
+}
+
+.login-form input[type="reset"]:hover {
+    background: #7f8c8d;
+}
+
+.register-form button {
+    width: 100%;
+    padding: 12px;
+    background: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.register-form button:hover {
+    background: #2980b9;
+}
+
+.switch-btn {
+    display: block;
+    text-align: center;
+    margin-top: 15px;
+    color: #3498db;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.switch-btn:hover {
+    color: #2980b9;
+    text-decoration: underline;
+}
+
+.msg {
+    margin-top: 10px;
+    padding: 10px;
+    text-align: center;
+    font-size: 14px;
+}
+
+
