@@ -1,0 +1,462 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+    min-height: 100vh;
+}
+
+.quanju {
+    width: 1200px;
+    margin: 0 auto;
+    padding-top: 0;
+}
+
+header {
+    background: #2c3e50;
+    color: #fff;
+    padding: 15px;
+    overflow: hidden;
+}
+
+.logo {
+    float: left;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.nav {
+    float: right;
+}
+
+.nav ul {
+    list-style: none;
+}
+
+.nav ul li {
+    float: left;
+    margin-left: 20px;
+}
+
+.nav ul li .nav-item {
+    color: #fff;
+    cursor: pointer;
+    padding: 5px 10px;
+    display: inline-block;
+    transition: background 0.3s, color 0.3s;
+}
+
+.nav ul li .nav-item:hover {
+    background: #34495e;
+}
+
+.icon-li {
+    margin-left: 15px;
+}
+
+.icon-img {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    filter: brightness(0) invert(1);
+    transition: transform 0.5s ease;
+}
+
+.cart-icon:hover {
+    transform: rotate(20deg) scale(1.2);
+}
+
+.search-icon:hover {
+    transform: rotate(360deg) scale(1.2);
+}
+
+.login-btn {
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+    border-radius: 5px;
+    transition: transform 0.3s, box-shadow 0.3s, background 0.5s;
+}
+
+.login-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 15px rgba(231, 76, 60, 0.5);
+    background: linear-gradient(135deg, #c0392b, #e74c3c);
+}
+
+.main {
+    overflow: hidden;
+    margin-top: 20px;
+    min-height: 500px;
+}
+
+.left {
+    width: 20%;
+    float: left;
+    background: #fff;
+    padding: 20px;
+    margin-right: 2%;
+    border: 1px solid #ddd;
+}
+
+.left h3 {
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.left ul {
+    list-style: none;
+}
+
+.left ul li {
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    transition: color 0.3s, padding-left 0.3s;
+}
+
+.left ul li:hover {
+    color: #e74c3c;
+    padding-left: 10px;
+}
+
+.banner {
+    margin-top: 20px;
+    width: 100%;
+    height: 150px;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.carousel {
+    width: 100%;
+    height: 150px;
+    overflow: hidden;
+}
+
+.carousel-list {
+    width: 100%;
+    transition: margin-top 1s ease-in-out;
+}
+
+.carousel-img {
+    width: 100%;
+    height: 150px;
+}
+
+.carousel-img img {
+    width: 100%;
+    height: 150px;
+    object-fit: contain;
+}
+
+.center {
+    width: 56%;
+    float: left;
+    background: #fff;
+    padding: 20px;
+    border: 1px solid #ddd;
+}
+
+.hot h3, .new h3 {
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.grid {
+    overflow: hidden;
+}
+
+.item {
+    width: 30%;
+    float: left;
+    margin-right: 5%;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.item:last-child {
+    margin-right: 0;
+}
+
+.item:hover {
+    transform: translateX(10px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.item .cover {
+    width: 100%;
+    height: 150px;
+    overflow: hidden;
+    margin-bottom: 10px;
+    border-radius: 8px;
+}
+
+.item .cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.item:hover .cover img {
+    transform: scale(1.1);
+}
+
+.item span {
+    color: #e74c3c;
+    font-weight: bold;
+}
+
+.new table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.new table th, .new table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+    transition: background 0.3s;
+}
+
+.new table th {
+    background: #f8f8f8;
+}
+
+.new table tr:hover td {
+    background: #f9f9f9;
+}
+
+.right {
+    width: 20%;
+    float: right;
+}
+
+.promo, .rank {
+    background: #fff;
+    padding: 20px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+}
+
+.promo h3, .rank h3 {
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.promo div, .rank div {
+    padding: 8px 0;
+    cursor: pointer;
+    transition: color 0.3s, padding-left 0.3s;
+}
+
+.promo div:hover, .rank div:hover {
+    color: #e74c3c;
+    padding-left: 5px;
+}
+
+.bottom {
+    background: #2c3e50;
+    color: #fff;
+    text-align: center;
+    padding: 15px;
+    margin-top: 20px;
+}
+
+#login-modal, #register-modal {
+    display: none;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+}
+
+#login-modal:checked + .modal,
+#register-modal:checked + .modal {
+    display: block;
+}
+
+.modal-mask {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    animation: modalFadeIn 0.3s ease;
+}
+
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+.close {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    font-size: 28px;
+    cursor: pointer;
+    color: #999;
+    transition: color 0.3s, transform 0.3s;
+}
+
+.close:hover {
+    color: #333;
+    transform: rotate(90deg);
+}
+
+.modal-title {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.login-form, .register-form {
+    padding-top: 20px;
+}
+
+.login-form input, .register-form input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.login-form input:focus, .register-form input:focus {
+    outline: none;
+    border-color: #e74c3c;
+    box-shadow: 0 0 5px rgba(231, 76, 60, 0.3);
+}
+
+.login-form input[type="submit"],
+.login-form input[type="reset"] {
+    width: 48%;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.3s;
+}
+
+.login-form input[type="submit"] {
+    background: #e74c3c;
+    color: #fff;
+    margin-right: 4%;
+}
+
+.login-form input[type="submit"]:hover {
+    background: #c0392b;
+    transform: translateY(-2px);
+}
+
+.login-form input[type="reset"] {
+    background: #95a5a6;
+    color: #fff;
+}
+
+.login-form input[type="reset"]:hover {
+    background: #7f8c8d;
+    transform: translateY(-2px);
+}
+
+.register-form button {
+    width: 100%;
+    padding: 12px;
+    background: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.3s;
+}
+
+.register-form button:hover {
+    background: #2980b9;
+    transform: translateY(-2px);
+}
+
+.switch-btn {
+    display: block;
+    text-align: center;
+    margin-top: 15px;
+    color: #3498db;
+    cursor: pointer;
+    font-size: 14px;
+    transition: color 0.3s;
+}
+
+.switch-btn:hover {
+    color: #2980b9;
+    text-decoration: underline;
+}
+
+.msg {
+    margin-top: 10px;
+    padding: 10px;
+    text-align: center;
+    font-size: 14px;
+}
+
+@media (max-width: 768px) {
+    .quanju {
+        width: 100%;
+        padding: 0 10px;
+    }
+
+    .left, .center, .right {
+        width: 100%;
+        float: none;
+        margin: 0 0 15px 0;
+    }
+
+    .item {
+        width: 48%;
+        margin-right: 4%;
+    }
+
+    .modal-content {
+        width: 90%;
+    }
+
+    .banner, .carousel, .carousel-img, .carousel-img img {
+        height: 100px;
+    }
+}
