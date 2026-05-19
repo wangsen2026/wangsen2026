@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>在线图书商城</title>
+    <link rel="stylesheet" href="lab6-2502-066-index.css">
+</head>
+<body>
+    <div class="quanju">
+        <header>
+            <div class="logo">📚 图书商城</div>
+            <div class="nav">
+                <ul>
+                    <li><span class="nav-item">首页</span></li>
+                    <li><span class="nav-item">分类</span></li>
+                    <li><span class="nav-item">新书</span></li>
+                    <li><span class="nav-item">促销</span></li>
+                    <li><span class="nav-item">联系</span></li>
+                    <li class="icon-li" id="cart-icon-li">
+                        <span class="cart-emoji">🛒</span>
+                        <span class="cart-count" id="cart-count">0</span>
+                    </li>
+                    <li class="icon-li"><span class="search-emoji" id="search-icon">🔍</span></li>
+                    <li id="user-info"><span class="nav-item">您好，访客</span></li>
+                    <li><label class="nav-item login-btn" for="login-modal" id="login-btn">登录</label></li>
+                    <li><span class="nav-item logout-btn" style="display: none;">退出</span></li>
+                </ul>
+            </div>
+        </header>
+
+        <div class="search-section" id="search-section">
+            <div class="search-container">
+                <input type="text" class="search-input" id="search-input" placeholder="输入关键词搜索图书（书名/作者/分类）">
+                <select class="search-filter" id="search-filter">
+                    <option value="all">全部</option>
+                    <option value="title">书名</option>
+                    <option value="author">作者</option>
+                    <option value="category">分类</option>
+                </select>
+                <button class="search-btn" id="search-btn">搜索</button>
+            </div>
+            <div class="search-results" id="search-results"></div>
+        </div>
+
+        <div class="main">
+           <div class="left">
+                <h3>图书分类</h3>
+                <ul id="category-list">
+                    <li class="category-item" data-category="文学小说">文学小说</li>
+                    <li class="category-item" data-category="人文社科">人文社科</li>
+                    <li class="category-item" data-category="经济管理">经济管理</li>
+                    <li class="category-item" data-category="科技科普">科技科普</li>
+                    <li class="category-item" data-category="教育考试">教育考试</li>
+                    <li class="category-item" data-category="儿童读物">儿童读物</li>
+                </ul>
+                <div class="banner">
+                    <div class="carousel" id="carousel">
+                        <div class="carousel-list" id="carousel-list">
+                            <div class="carousel-img"><img src="lab6-2502-066-index.js/1.webp" alt="轮播图1"></div>
+                            <div class="carousel-img"><img src="lab6-2502-066-index.js/2.webp" alt="轮播图2"></div>
+                            <div class="carousel-img"><img src="lab6-2502-066-index.js/3.webp" alt="轮播图3"></div>
+                            <div class="carousel-img"><img src="lab6-2502-066-index.js/live.jpg" alt="轮播图4"></div>
+                            <div class="carousel-img"><img src="lab6-2502-066-index.js/santi.jpg" alt="轮播图5"></div>
+                            <div class="carousel-img"><img src="lab6-2502-066-index.js/bainiangudu.jpg" alt="轮播图6"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="center">
+                <div class="hot">
+                    <h3>🔥热门推荐</h3>
+                    <div class="grid-3d" id="book-grid">
+                    </div>
+                </div>
+                <div class="shopping-cart" id="shopping-cart" style="display: none;">
+                    <h3>🛒购物车</h3>
+                    <div class="cart-items" id="cart-items"></div>
+                    <div class="cart-total" id="cart-total"></div>
+                    <button class="clear-cart-btn" id="clear-cart-btn">清空购物车</button>
+                </div>
+                <div class="new">
+                    <h3>新书上市</h3>
+                    <table id="new-books-table">
+                        <thead>
+                            <tr><th>书名</th><th>作者</th><th>价格</th><th>操作</th></tr>
+                        </thead>
+                        <tbody id="new-books-tbody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="right">
+                <div class="promo">
+                    <h3>限时特惠</h3>
+                    <div>全场5折起</div>
+                    <div>满100减20</div>
+                </div>
+                <div class="rank">
+                    <h3>本周排行</h3>
+                    <div id="rank-list">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bottom">
+            <div class="footer-content">
+                <div class="social-icons">
+                    <div class="social-icon icon-wechat">💬</div>
+                    <div class="social-icon icon-weibo">📢</div>
+                    <div class="social-icon icon-qq">🐧</div>
+                    <div class="social-icon icon-bilibili">📺</div>
+                </div>
+                <div class="copyright">© 2026 图书商城 - 用心阅读，感受文字的力量</div>
+            </div>
+        </div>
+    </div>
+
+    <input type="checkbox" id="login-modal">
+    <div class="modal">
+        <label class="modal-mask" for="login-modal"></label>
+        <div class="modal-content">
+            <label class="close" for="login-modal">×</label>
+            <div class="modal-title">用户登录</div>
+            <form class="login-form" onsubmit="return login()">
+                <input type="text" id="login-username" placeholder="请输入用户名（邮箱/手机号）">
+                <input type="password" id="login-password" placeholder="请输入密码">
+                <input type="submit" value="登录">
+                <input type="reset" value="清除信息">
+                <label class="switch-btn" for="register-modal">还没有账号？去注册</label>
+                <div class="msg" id="login-msg"></div>
+            </form>
+        </div>
+    </div>
+
+    <input type="checkbox" id="register-modal">
+    <div class="modal">
+        <label class="modal-mask" for="register-modal"></label>
+        <div class="modal-content">
+            <label class="close" for="register-modal">×</label>
+            <div class="modal-title">用户注册</div>
+            <form class="register-form" onsubmit="return register()">
+                <input type="text" id="reg-username" placeholder="请输入用户名（邮箱/手机号）">
+                <div class="validation-msg" id="username-validation"></div>
+                <input type="password" id="reg-password" placeholder="请输入密码">
+                <div class="password-strength" id="password-strength">
+                    <span class="strength-bar" id="strength-bar"></span>
+                    <span class="strength-text" id="strength-text">请输入密码</span>
+                </div>
+                <input type="password" id="reg-repassword" placeholder="请确认密码">
+                <div class="validation-msg" id="repassword-validation"></div>
+                <button type="submit">注册</button>
+                <label class="switch-btn" for="login-modal">已有账号？去登录</label>
+                <div class="msg" id="reg-msg"></div>
+            </form>
+        </div>
+    </div>
+
+    <div class="cart-panel" id="cart-panel">
+        <div class="cart-panel-header">
+            <h3>购物车</h3>
+            <button class="close-cart-btn" id="close-cart-btn">×</button>
+        </div>
+        <div class="cart-panel-items" id="cart-panel-items"></div>
+        <div class="cart-panel-footer">
+            <div class="cart-panel-total" id="cart-panel-total">总计：¥0</div>
+            <button class="checkout-btn">去结算</button>
+        </div>
+    </div>
+<script>
+    var currentUser = null;
+    var bookList = [];
+    var cartList = [];
+
+    function Book(title, author, price, rating, category, imgSrc) {
+        this.title = title;
+        this.author = author;
+        this.price = price;
+        this.rating = rating;
+        this.category = category;
+        this.imgSrc = imgSrc || 'lab6-2502-066-index.js/1.webp';
+    }
+
+    function createUserObject(username, password) {
+        return {
+            username: username,
+            password: password,
+            isLoggedIn: false,
+            cart: []
+        };
+    }
+
+    function initBookData() {
+        var book1 = new Book('活着', '余华', 39, 5, '文学小说', 'lab6-2502-066-index.js/live.jpg');
+        var book2 = new Book('三体', '刘慈欣', 68, 5, '科技科普', 'lab6-2502-066-index.js/santi.jpg');
+        var book3 = new Book('百年孤独', '马尔克斯', 55, 5, '文学小说', 'lab6-2502-066-index.js/bainiangudu.jpg');
+        var book4 = new Book('明朝那些事儿', '当年明月', 88, 4.5, '人文社科', 'lab6-2502-066-index.js/1.webp');
+        var book5 = new Book('人类简史', '尤瓦尔', 68, 4.8, '人文社科', 'lab6-2502-066-index.js/2.webp');
+        var book6 = new Book('原则', '达利欧', 98, 4.6, '经济管理', 'lab6-2502-066-index.js/3.webp');
+        var book7 = new Book('围城', '钱钟书', 42, 4.7, '文学小说', 'lab6-2502-066-index.js/live.jpg');
+        var book8 = new Book('红楼梦', '曹雪芹', 128, 5, '文学小说', 'lab6-2502-066-index.js/santi.jpg');
+
+        bookList = [book1, book2, book3, book4, book5, book6, book7, book8];
+    }
+
+    function renderBookGrid() {
+        var grid = document.getElementById('book-grid');
+        grid.innerHTML = '';
+        
+        for (var i = 0; i < 3; i++) {
+            var book = bookList[i];
+            var card = document.createElement('div');
+            card.className = 'card-3d';
+            card.innerHTML = `
+                <div class="card-inner">
+                    <div class="card-front">
+                        <img src="${book.imgSrc}" alt="${book.title}">
+                        <h4>${book.title}</h4>
+                    </div>
+                    <div class="card-back">
+                        <h4>${book.title}</h4>
+                        <p class="author">作者：${book.author}</p>
+                        <p class="price">¥${book.price}</p>
+                        <div class="rating">${'⭐'.repeat(Math.floor(book.rating))}${'☆'.repeat(5-Math.floor(book.rating))}</div>
+                        <p class="desc">${book.category}类畅销书籍</p>
+                        <button class="add-to-cart-btn" onclick="addToCart(${i})">加入购物车</button>
+                    </div>
+                </div>
+            `;
+            grid.appendChild(card);
+        }
+    }
+
+    function renderNewBooksTable() {
+        var tbody = document.getElementById('new-books-tbody');
+        tbody.innerHTML = '';
+        
+        for (var i = 3; i < 6; i++) {
+            var book = bookList[i];
+            var tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>${book.title}</td>
+                <td>${book.author}</td>
+                <td>¥${book.price}</td>
+                <td><button class="add-table-cart-btn" onclick="addToCart(${i})">加入购物车</button></td>
+            `;
+            tbody.appendChild(tr);
+        }
+    }
+
+    function renderRankList() {
+        var rankList = document.getElementById('rank-list');
+        rankList.innerHTML = '';
+        
+        for (var i = 0; i < 3; i++) {
+            var div = document.createElement('div');
+            div.className = 'rank-item';
+            div.innerText = (i+1) + '. ' + bookList[i].title;
+            rankList.appendChild(div);
+        }
+    }
+
+    function addToCart(index) {
+        var book = bookList[index];
+        var existingItem = cartList.find(function(item) { return item.title === book.title; });
+        
+        if (existingItem) {
+            existingItem.quantity++;
+        } else {
+            cartList.push({
+                title: book.title,
+                author: book.author,
+                price: book.price,
+                quantity: 1
+            });
+        }
+        
+        updateCartDisplay();
+        showNotification('已添加《' + book.title + '》到购物车');
+    }
+
+    function updateCartDisplay() {
+        var cartCount = document.getElementById('cart-count');
+        var cartPanelItems = document.getElementById('cart-panel-items');
+        var cartPanelTotal = document.getElementById('cart-panel-total');
+        var cartItems = document.getElementById('cart-items');
+        var cartTotal = document.getElementById('cart-total');
+        
+        var totalCount = 0;
+        var totalPrice = 0;
+        
+        cartPanelItems.innerHTML = '';
+        cartItems.innerHTML = '';
+        
+        for (var i = 0; i < cartList.length; i++) {
+            var item = cartList[i];
+            totalCount += item.quantity;
+            totalPrice += item.price * item.quantity;
+            
+            var panelItem = document.createElement('div');
+            panelItem.className = 'cart-panel-item';
+            panelItem.innerHTML = `
+                <div class="cart-item-info">
+                    <span class="cart-item-title">${item.title}</span>
+                    <span class="cart-item-author">${item.author}</span>
+                </div>
+                <div class="cart-item-price">¥${item.price} x ${item.quantity}</div>
+                <button class="remove-item-btn" onclick="removeFromCart(${i})">×</button>
+            `;
+            cartPanelItems.appendChild(panelItem);
+            
+            var listItem = document.createElement('div');
+            listItem.className = 'cart-list-item';
+            listItem.innerHTML = `
+                <span>${item.title} - ${item.author} - ¥${item.price} x ${item.quantity}</span>
+                <button class="remove-item-btn" onclick="removeFromCart(${i})">删除</button>
+            `;
+            cartItems.appendChild(listItem);
+        }
+        
+        cartCount.innerText = totalCount;
+        cartPanelTotal.innerText = '总计：¥' + totalPrice;
+        cartTotal.innerHTML = '<strong>总计：¥' + totalPrice + '</strong>';
+    }
+
+    function removeFromCart(index) {
+        cartList.splice(index, 1);
+        updateCartDisplay();
+    }
+
+    function clearCart() {
+        cartList = [];
+        updateCartDisplay();
+        showNotification('购物车已清空');
+    }
+
+    function showNotification(text) {
+        var notification = document.createElement('div');
+        notification.className = 'notification';
+        notification.innerText = text;
+        document.body.appendChild(notification);
+        
+        setTimeout(function() {
+            notification.style.opacity = '0';
+            setTimeout(function() {
+                document.body.removeChild(notification);
+            }, 500);
+        }, 4000);
+    }
+
+    function validateUsername(username) {
+        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        var phoneRegex = /^1[3-9]\d{9}$/;
+        return emailRegex.test(username) || phoneRegex.test(username);
+    }
+
+    function getPasswordStrength(password) {
+        var strength = 0;
+        if (password.length >= 6) strength++;
+        if (password.length >= 8) strength++;
+        if (/[a-z]/.test(password) && /[A-Z]/.test(password)) strength++;
+        if (/\d/.test(password)) strength++;
+        if (/[!@#$%^&*]/.test(password)) strength++;
+        return strength;
+    }
+
+    function updatePasswordStrength() {
+        var password = document.getElementById('reg-password').value;
+        var strengthBar = document.getElementById('strength-bar');
+        var strengthText = document.getElementById('strength-text');
+        var strength = getPasswordStrength(password);
+        
+        strengthBar.className = 'strength-bar';
+        
+        if (password.length === 0) {
+            strengthBar.style.width = '0';
+            strengthText.innerText = '请输入密码';
+            strengthText.className = 'strength-text';
+        } else if (strength <= 1) {
+            strengthBar.style.width = '20%';
+            strengthBar.style.background = '#e74c3c';
+            strengthText.innerText = '弱';
+            strengthText.className = 'strength-text weak';
+        } else if (strength <= 3) {
+            strengthBar.style.width = '50%';
+            strengthBar.style.background = '#f39c12';
+            strengthText.innerText = '中';
+            strengthText.className = 'strength-text medium';
+        } else {
+            strengthBar.style.width = '100%';
+            strengthBar.style.background = '#27ae60';
+            strengthText.innerText = '强';
+            strengthText.className = 'strength-text strong';
+        }
+    }
+
+    function searchBooks() {
+        var input = document.getElementById('search-input').value.toLowerCase();
+        var filter = document.getElementById('search-filter').value;
+        var results = document.getElementById('search-results');
+        
+        if (input === '') {
+            results.innerHTML = '';
+            return;
+        }
+        
+        var filteredBooks = bookList.filter(function(book) {
+            if (filter === 'all') {
+                return book.title.toLowerCase().includes(input) || 
+                       book.author.toLowerCase().includes(input) || 
+                       book.category.toLowerCase().includes(input);
+            } else if (filter === 'title') {
+                return book.title.toLowerCase().includes(input);
+            } else if (filter === 'author') {
+                return book.author.toLowerCase().includes(input);
+            } else if (filter === 'category') {
+                return book.category.toLowerCase().includes(input);
+            }
+            return false;
+        });
+        
+        results.innerHTML = '';
+        
+        if (filteredBooks.length === 0) {
+            results.innerHTML = '<p class="no-results">没有找到匹配的图书</p>';
+            return;
+        }
+        
+        for (var i = 0; i < filteredBooks.length; i++) {
+            var book = filteredBooks[i];
+            var index = bookList.indexOf(book);
+            var item = document.createElement('div');
+            item.className = 'search-item';
+            item.innerHTML = `
+                <img src="${book.imgSrc}" alt="${book.title}">
+                <div class="search-item-info">
+                    <h4>${book.title}</h4>
+                    <p>作者：${book.author}</p>
+                    <p>分类：${book.category}</p>
+                    <p>评分：${'⭐'.repeat(Math.floor(book.rating))}${'☆'.repeat(5-Math.floor(book.rating))} (${book.rating})</p>
+                    <p class="price">¥${book.price}</p>
+                </div>
+                <button class="add-search-cart-btn" onclick="addToCart(${index})">加入购物车</button>
+            `;
+            results.appendChild(item);
+        }
+    }
+
+    function filterByCategory(category) {
+        document.getElementById('search-filter').value = 'category';
+        document.getElementById('search-input').value = category;
+        searchBooks();
+    }
+
+    window.onload = function() {
+        initBookData();
+        renderBookGrid();
+        renderNewBooksTable();
+        renderRankList();
+        checkLoginStatus();
+        
+        document.querySelector('.logout-btn').addEventListener('click', logout);
+        document.getElementById('reg-password').addEventListener('input', updatePasswordStrength);
+        document.getElementById('reg-username').addEventListener('blur', function() {
+            var username = this.value;
+            var validation = document.getElementById('username-validation');
+            if (username && !validateUsername(username)) {
+                validation.innerHTML = '<span style="color:red;">请输入有效的邮箱或手机号</span>';
+            } else {
+                validation.innerHTML = '';
+            }
+        });
+        document.getElementById('reg-repassword').addEventListener('blur', function() {
+            var password = document.getElementById('reg-password').value;
+            var repassword = this.value;
+            var validation = document.getElementById('repassword-validation');
+            if (repassword && password !== repassword) {
+                validation.innerHTML = '<span style="color:red;">两次密码不一致</span>';
+            } else {
+                validation.innerHTML = '';
+            }
+        });
+        document.getElementById('search-btn').addEventListener('click', searchBooks);
+        document.getElementById('search-input').addEventListener('input', searchBooks);
+        
+        var categoryItems = document.querySelectorAll('.category-item');
+        for (var i = 0; i < categoryItems.length; i++) {
+            categoryItems[i].addEventListener('click', function() {
+                filterByCategory(this.dataset.category);
+            });
+        }
+        
+        document.getElementById('cart-icon-li').addEventListener('click', function() {
+            document.getElementById('cart-panel').classList.toggle('open');
+        });
+        document.getElementById('close-cart-btn').addEventListener('click', function() {
+            document.getElementById('cart-panel').classList.remove('open');
+        });
+        document.getElementById('clear-cart-btn').addEventListener('click', clearCart);
+        
+        startCarousel();
+        initRingControl();
+    };
+
+    function checkLoginStatus() {
+        var storedUser = localStorage.getItem('currentUser');
+        if (storedUser) {
+            currentUser = storedUser;
+            document.getElementById('user-info').innerHTML = '<span class="nav-item">您好，' + storedUser + '</span>';
+            document.getElementById('login-btn').style.display = 'none';
+            document.querySelector('.logout-btn').style.display = 'inline-block';
+            document.getElementById('shopping-cart').style.display = 'block';
+        }
+    }
+
+    function login() {
+        var username = document.getElementById('login-username').value;
+        var password = document.getElementById('login-password').value;
+        var msg = document.getElementById('login-msg');
+        
+        if (!username || !password) {
+            msg.innerHTML = '<span style="color: red;">请填写完整信息！</span>';
+            return false;
+        }
+        
+        var users = JSON.parse(localStorage.getItem('users') || '[]');
+        var found = users.find(function(u) {
+            return u.username === username && u.password === password;
+        });
+        
+        if (found) {
+            currentUser = username;
+            localStorage.setItem('currentUser', username);
+            msg.innerHTML = '<span style="color: green;">登录成功！</span>';
+            setTimeout(function() {
+                document.getElementById('login-modal').checked = false;
+                checkLoginStatus();
+                msg.innerHTML = '';
+            }, 1000);
+        } else {
+            msg.innerHTML = '<span style="color: red;">用户名或密码错误！</span>';
+        }
+        return false;
+    }
+
+    function register() {
+        var username = document.getElementById('reg-username').value;
+        var password = document.getElementById('reg-password').value;
+        var repassword = document.getElementById('reg-repassword').value;
+        var msg = document.getElementById('reg-msg');
+        
+        if (!username || !password || !repassword) {
+            msg.innerHTML = '<span style="color: red;">请填写完整信息！</span>';
+            return false;
+        }
+        
+        if (!validateUsername(username)) {
+            msg.innerHTML = '<span style="color: red;">用户名格式不正确，请输入邮箱或手机号！</span>';
+            return false;
+        }
+        
+        if (password !== repassword) {
+            msg.innerHTML = '<span style="color: red;">两次密码不一致！</span>';
+            return false;
+        }
+        
+        if (getPasswordStrength(password) < 2) {
+            msg.innerHTML = '<span style="color: red;">密码强度太弱！</span>';
+            return false;
+        }
+        
+        var users = JSON.parse(localStorage.getItem('users') || '[]');
+        var exists = users.some(function(u) {
+            return u.username === username;
+        });
+        
+        if (exists) {
+            msg.innerHTML = '<span style="color: red;">用户名已存在！</span>';
+            return false;
+        }
+        
+        var newUser = createUserObject(username, password);
+        users.push(newUser);
+        localStorage.setItem('users', JSON.stringify(users));
+        
+        msg.innerHTML = '<span style="color: green;">注册成功！即将跳转到登录...</span>';
+        setTimeout(function() {
+            document.getElementById('register-modal').checked = false;
+            document.getElementById('login-modal').checked = true;
+            msg.innerHTML = '';
+        }, 1500);
+        return false;
+    }
+
+    function logout() {
+        currentUser = null;
+        cartList = [];
+        localStorage.removeItem('currentUser');
+        document.getElementById('user-info').innerHTML = '<span class="nav-item">您好，访客</span>';
+        document.getElementById('login-btn').style.display = 'inline-block';
+        document.querySelector('.logout-btn').style.display = 'none';
+        document.getElementById('shopping-cart').style.display = 'none';
+        updateCartDisplay();
+    }
+
+    function startCarousel() {
+        var list = document.getElementById('carousel-list');
+        var imgs = list.querySelectorAll('.carousel-img');
+        var imgHeight = 150;
+        var currentIndex = 0;
+        var totalImgs = imgs.length;
+
+        function scrollUp() {
+            currentIndex++;
+            if (currentIndex >= totalImgs) {
+                currentIndex = 0;
+            }
+            list.style.marginTop = '-' + (currentIndex * imgHeight) + 'px';
+        }
+
+        setInterval(scrollUp, 5000);
+    }
+
+    function initRingControl() {
+        var ringContainer = document.querySelector('.ring-container');
+        if (!ringContainer) return;
+        
+        var ringHTML = `
+            <div class="ring-3d" id="ring-3d">
+                <div class="ring-item" style="--i: 0;"><img src="lab6-2502-066-index.js/1.webp" alt="图书1"></div>
+                <div class="ring-item" style="--i: 1;"><img src="lab6-2502-066-index.js/2.webp" alt="图书2"></div>
+                <div class="ring-item" style="--i: 2;"><img src="lab6-2502-066-index.js/3.webp" alt="图书3"></div>
+                <div class="ring-item" style="--i: 3;"><img src="lab6-2502-066-index.js/live.jpg" alt="图书4"></div>
+                <div class="ring-item" style="--i: 4;"><img src="lab6-2502-066-index.js/santi.jpg" alt="图书5"></div>
+                <div class="ring-item" style="--i: 5;"><img src="lab6-2502-066-index.js/bainiangudu.jpg" alt="图书6"></div>
+                <div class="ring-item" style="--i: 6;"><img src="lab6-2502-066-index.js/1.webp" alt="图书7"></div>
+                <div class="ring-item" style="--i: 7;"><img src="lab6-2502-066-index.js/2.webp" alt="图书8"></div>
+            </div>
+        `;
+        
+        var ringSection = document.createElement('div');
+        ringSection.className = 'ring-section';
+        ringSection.innerHTML = '<h3>🎡3D环形图书展</h3>' + ringHTML;
+        
+        var hotSection = document.querySelector('.hot');
+        var parent = hotSection.parentNode;
+        parent.insertBefore(ringSection, hotSection.nextSibling);
+        
+        var ring = document.getElementById('ring-3d');
+        var isDragging = false;
+        var startY = 0;
+        var currentRotateX = 0;
+        var autoRotate = true;
+
+        function rotateRing(delta) {
+            currentRotateX += delta;
+            ring.style.transform = 'rotateX(' + currentRotateX + 'deg) rotateY(30deg)';
+        }
+
+        setInterval(function() {
+            if (autoRotate) {
+                rotateRing(0.3);
+            }
+        }, 30);
+
+        ring.addEventListener('mouseenter', function() {
+            autoRotate = false;
+        });
+
+        ring.addEventListener('mouseleave', function() {
+            autoRotate = true;
+        });
+
+        ring.addEventListener('mousedown', function(e) {
+            isDragging = true;
+            startY = e.clientY;
+            ring.style.cursor = 'grabbing';
+        });
+
+        document.addEventListener('mousemove', function(e) {
+            if (!isDragging) return;
+            var deltaY = (e.clientY - startY) * 0.5;
+            startY = e.clientY;
+            rotateRing(deltaY);
+        });
+
+        document.addEventListener('mouseup', function() {
+            isDragging = false;
+            ring.style.cursor = 'grab';
+        });
+    }
+</script>
+</body>
+</html>
